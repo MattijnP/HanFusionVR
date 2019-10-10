@@ -10,6 +10,10 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    public float lowPitchRange;
+    public float highPitchRange;
+    private float defaultPitch;
+
     public void Awake()
     {
         if (instance == null)
@@ -52,6 +56,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip"></param>
     public void PlaySfx(AudioClip clip)
     {
+        effects.pitch = defaultPitch;
         effects.clip = clip;
         effects.Play();
     }
@@ -63,8 +68,23 @@ public class AudioManager : MonoBehaviour
     /// <param name="volume"></param>
     public void PlaySfx(AudioClip clip, float volume)
     {
+        effects.pitch = defaultPitch;
         effects.clip = clip;
         effects.volume = volume;
         effects.Play();
+    }
+
+    /// <summary>
+    /// Play a sound effect with a random pitch
+    /// </summary>
+    /// <param name="clip"></param>
+    public void PlaySfxWithRandomPitch(AudioClip clip)
+    {
+        float randomPitch = Random.Range(lowPitchRange, highPitchRange);
+
+        effects.pitch = randomPitch;
+        effects.clip = clip;
+        effects.Play();
+
     }
 }
