@@ -61,8 +61,6 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateLostState()
     {
-        SwitchAnimation("IsStandingStill");
-
         if (_timeSinceLastSpoken <= 0f)
         {
             int value = Random.Range(0, 2);
@@ -78,8 +76,7 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateMovingState()
     {
-        SwitchAnimation("IsWalking");
-        _agent.SetDestination(SaveZoneLocation.position);
+        transform.position = SaveZoneLocation.position;
 
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
@@ -89,7 +86,6 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateSaveState()
     {
-        SwitchAnimation("IsStandingStill");
     }
 
     private void Setup()
