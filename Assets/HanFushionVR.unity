@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialState: 0
-  StunDuration: 0
+  StunDuration: 2.04
   InspectDuration: 0
   WanderRadius: 15
   AwarenessRadius: 15

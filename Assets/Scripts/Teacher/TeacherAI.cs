@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,7 @@ public class TeacherAI : MonoBehaviour
         Inspect,
         Attack,
         Stun,
+        Unstun,
     };
 
     public TeacherStates InitialState;
@@ -48,6 +50,8 @@ public class TeacherAI : MonoBehaviour
 
     private static Animator ANIMATOR;
 
+    private string _currentAnimation;
+
     // ----------- START
 
     private void Start()
@@ -67,6 +71,18 @@ public class TeacherAI : MonoBehaviour
             case TeacherStates.Inspect: UpdateInspectState(); break;
             case TeacherStates.Attack: UpdateAttackState(); break;
             case TeacherStates.Stun: UpdateStunState(); break;
+            case TeacherStates.Unstun: UpdateRecoverState(); break;
+        }
+    }
+
+    private void UpdateRecoverState()
+    {
+        UpdateTimeInState();
+        SwitchAnimation("IsStandingUp");
+
+        if (_timeInState <= 0f)
+        {
+            SwitchStates(TeacherStates.Wander);
         }
     }
 
@@ -153,8 +169,9 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsAttacking");
 
         // If teacher is attacked by player, switch to Stun State
-        if (false)
+        if (Input.GetButtonDown("Fire1"))
         {
+            _timeInState = StunDuration;
             SwitchStates(TeacherStates.Stun);
         }
 
@@ -177,9 +194,10 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsStunned");
 
         // After <stunDuration> seconds, switch to Chase State
-        if (_timeInState == StunDuration)
+        if (_timeInState <= 0f)
         {
-            SwitchStates(TeacherStates.Chase);
+            _timeInState = 9f;
+            SwitchStates(TeacherStates.Unstun);
         }
     }
 
@@ -188,13 +206,16 @@ public class TeacherAI : MonoBehaviour
     private void SwitchStates(TeacherStates state)
     {
         _currentState = state;
-        _timeInState = 0f;
         Debug.Log("Switching " + transform.name + "state to: " + _currentState);
     }
 
     private void SwitchAnimation(string animationState)
     {
-        ANIMATOR.SetTrigger(animationState);
+        if (_currentAnimation != null) {
+            ANIMATOR.ResetTrigger(_currentAnimation);
+        }
+        _currentAnimation = animationState;
+        ANIMATOR.SetTrigger(_currentAnimation);
     }
 
     private void Setup()
@@ -223,15 +244,15 @@ public class TeacherAI : MonoBehaviour
 
     private void UpdateTimeInState()
     {
-        _timeInState = Time.deltaTime;
+        _timeInState -= Time.deltaTime;
     }
 
     private void SetRandomDestinationForAgentNearTarget(Transform target, float minPos, float maxPos)
     {
         Vector3 newDestination = new Vector3(
-            target.position.x + Random.Range(minPos, maxPos),
+            target.position.x + UnityEngine.Random.Range(minPos, maxPos),
             target.position.y,
-            target.position.z + Random.Range(minPos, maxPos)
+            target.position.z + UnityEngine.Random.Range(minPos, maxPos)
             );
         _agent.SetDestination(newDestination);
     }
