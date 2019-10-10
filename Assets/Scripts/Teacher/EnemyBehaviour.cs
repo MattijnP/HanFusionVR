@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TeacherAI : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     // ----------- PUBLIC VARIABLES
 
-    public enum TeacherStates {
+    public enum EnemyStates {
         None = 0,
         Wander,
         Chase,
@@ -19,7 +19,7 @@ public class TeacherAI : MonoBehaviour
         Recover,
     };
 
-    public TeacherStates InitialState;
+    public EnemyStates InitialState;
 
     [Range(0f, 10f)]
     public float StunDuration;
@@ -43,7 +43,7 @@ public class TeacherAI : MonoBehaviour
 
     // ----------- PRIVATE VARIABLES
 
-    private TeacherStates _currentState;
+    private EnemyStates _currentState;
 
     private float _timeInState;
 
@@ -68,13 +68,13 @@ public class TeacherAI : MonoBehaviour
     {
         switch (_currentState)
         {
-            case TeacherStates.Wander: UpdateWanderState(); break;
-            case TeacherStates.Chase: UpdateChaseState(); break;
-            case TeacherStates.PointOfInterest: UpdatePointOfInterestState(); break;
-            case TeacherStates.Inspect: UpdateInspectState(); break;
-            case TeacherStates.Attack: UpdateAttackState(); break;
-            case TeacherStates.Stun: UpdateStunState(); break;
-            case TeacherStates.Recover: UpdateRecoverState(); break;
+            case EnemyStates.Wander: UpdateWanderState(); break;
+            case EnemyStates.Chase: UpdateChaseState(); break;
+            case EnemyStates.PointOfInterest: UpdatePointOfInterestState(); break;
+            case EnemyStates.Inspect: UpdateInspectState(); break;
+            case EnemyStates.Attack: UpdateAttackState(); break;
+            case EnemyStates.Stun: UpdateStunState(); break;
+            case EnemyStates.Recover: UpdateRecoverState(); break;
         }
     }
 
@@ -85,7 +85,7 @@ public class TeacherAI : MonoBehaviour
 
         if (_timeInState <= 0f)
         {
-            SwitchStates(TeacherStates.Wander);
+            SwitchStates(EnemyStates.Wander);
         }
     }
 
@@ -98,13 +98,13 @@ public class TeacherAI : MonoBehaviour
         // If player in field of view, switch to Chase State
         if (IsPlayerInFieldOfView())
         {
-            SwitchStates(TeacherStates.Chase);
+            SwitchStates(EnemyStates.Chase);
         }
 
         // If teacher hears a sound, switch to Inspect State
         if (false)
         {
-            SwitchStates(TeacherStates.Inspect);
+            SwitchStates(EnemyStates.Inspect);
         }
 
         if (_agent.remainingDistance <= _agent.stoppingDistance)
@@ -120,13 +120,13 @@ public class TeacherAI : MonoBehaviour
         // If player is not in field of view, switch to Wander State
         if (!IsPlayerInFieldOfView())
         {
-            SwitchStates(TeacherStates.Wander);
+            SwitchStates(EnemyStates.Wander);
         }
 
         // If teacher is close to player, switch to Attack State
         if (Vector3.Distance(this.transform.position, _player.transform.position) <=  AttackRadius)
         {
-            SwitchStates(TeacherStates.Attack);
+            SwitchStates(EnemyStates.Attack);
         }
 
         _agent.SetDestination(_player.transform.position);
@@ -139,13 +139,13 @@ public class TeacherAI : MonoBehaviour
         // If point of interest reached, switch to Inspect State
         if (_timeInState == InspectDuration)
         {
-            SwitchStates(TeacherStates.Wander);
+            SwitchStates(EnemyStates.Wander);
         }
 
         // If player is in field of view, switch to Chase State
         if (IsPlayerInFieldOfView())
         {
-            SwitchStates(TeacherStates.Chase);
+            SwitchStates(EnemyStates.Chase);
         }
     }
 
@@ -157,13 +157,13 @@ public class TeacherAI : MonoBehaviour
         // After <inspectDuration> seconds, switch to Wander State
         if (_timeInState == InspectDuration)
         {
-            SwitchStates(TeacherStates.Wander);
+            SwitchStates(EnemyStates.Wander);
         }
 
         // If player is in field of view, switch to Chase State
         if (IsPlayerInFieldOfView())
         {
-            SwitchStates(TeacherStates.Chase);
+            SwitchStates(EnemyStates.Chase);
         }
     }
 
@@ -175,19 +175,19 @@ public class TeacherAI : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             _timeInState = StunDuration;
-            SwitchStates(TeacherStates.Stun);
+            SwitchStates(EnemyStates.Stun);
         }
 
         // If player is not in field of view, switch to Chase State
         if (!IsPlayerInFieldOfView())
         {
-            SwitchStates(TeacherStates.Wander);
+            SwitchStates(EnemyStates.Wander);
         }
 
         // If player is in field of view but not close anymore, switch to Chase State
         if (IsPlayerInFieldOfView() && Vector3.Distance(_player.transform.position, this.transform.position) >= AttackRadius)
         {
-            SwitchStates(TeacherStates.Chase);
+            SwitchStates(EnemyStates.Chase);
         }
     }
 
@@ -200,13 +200,13 @@ public class TeacherAI : MonoBehaviour
         if (_timeInState <= 0f)
         {
             _timeInState = RecoverDuration;
-            SwitchStates(TeacherStates.Recover);
+            SwitchStates(EnemyStates.Recover);
         }
     }
 
     // ----------- HELPER METHODS
 
-    private void SwitchStates(TeacherStates state)
+    private void SwitchStates(EnemyStates state)
     {
         _currentState = state;
         Debug.Log("Switching " + transform.name + "state to: " + _currentState);
@@ -223,9 +223,9 @@ public class TeacherAI : MonoBehaviour
 
     private void Setup()
     {
-        if (InitialState == TeacherStates.None)
+        if (InitialState == EnemyStates.None)
         {
-            _currentState = TeacherStates.Wander;
+            _currentState = EnemyStates.Wander;
         }
         else
         {
