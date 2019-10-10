@@ -130,6 +130,6 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateTimeInState()
     {
-        _timeInState -= Time.deltaTime;
+        _timeSinceLastSpoken -= Time.deltaTime;
     }
 }
