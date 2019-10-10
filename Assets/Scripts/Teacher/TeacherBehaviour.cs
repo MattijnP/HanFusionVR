@@ -61,7 +61,9 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateLostState()
     {
-        if (_timeSinceLastSpoken -Time.deltaTime <= 0f)
+        UpdateTimeInState();
+
+        if (_timeSinceLastSpoken <= 0f)
         {
             int value = Random.Range(1, 2);
             AudioClip Play = HelpAudio[value];

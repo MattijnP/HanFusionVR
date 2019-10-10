@@ -211,7 +211,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
+  m_RootOrder: 5
+=======
   m_RootOrder: 4
+>>>>>>> aa7b9fb357f32e92aff1904c3ee21c2889bd3662
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &471312203
 GameObject:
@@ -771,4 +775,161 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< HEAD
+  m_SourcePrefab: {fileID: 100100000, guid: cf46acaee46670a48a1838a2442933a3, type: 3}
+--- !u!1 &1664989709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: cf46acaee46670a48a1838a2442933a3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1807320243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1664989710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664989709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb144044b7149446a49ce26f737eb77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Help: {fileID: 8300000, guid: 00ab3e686bb1dc4429ba863ff9ce7877, type: 3}
+  HelpHelp: {fileID: 8300000, guid: 7a7642085a4fc7a4bb963fc32cd589ef, type: 3}
+  IAmStuckInHere: {fileID: 8300000, guid: 6c4f277bd91aa3f4bb287970d2cfa11c, type: 3}
+  InitialState: 0
+  SaveZoneLocation: {fileID: 591550229}
+  TimeBetweenSpeeches: 5
+--- !u!1001 &1807320243
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -927199367670048503, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_Name
+      value: liam (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.74537
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.1306385e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.64227086
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf46acaee46670a48a1838a2442933a3, type: 3}
+--- !u!1 &1958379550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: cf46acaee46670a48a1838a2442933a3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1635696833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1958379552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: cf46acaee46670a48a1838a2442933a3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1635696833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1958379553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958379550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3daa27cd248834ca2519123a03c3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IllFindYou: {fileID: 8300000, guid: 2e95eb89c4682094582f6ec5c5561813, type: 3}
+  Grunt: {fileID: 8300000, guid: e3b31d221a5cbda48a94fc3609a68975, type: 3}
+  WhatWasThat: {fileID: 8300000, guid: b4a7ef63d736a1140bd2429236e906a4, type: 3}
+  YourAreNowMine: {fileID: 8300000, guid: 2fc009b25c9e4fb4eb55bc665c762b39, type: 3}
+  Chase: {fileID: 0}
+  ChaseAudioVolume: 0
+  InitialState: 0
+  StunDuration: 3
+  RecoverDuration: 9
+  InspectDuration: 0
+  WanderRadius: 50
+  AwarenessRadius: 5
+  AttackRadius: 2
+  FieldOfViewAngle: 90
+--- !u!195 &1958379554
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958379550}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+=======
   m_SourcePrefab: {fileID: 100100000, guid: 179a701b395421948bcb065d3692abdc, type: 3}
+>>>>>>> aa7b9fb357f32e92aff1904c3ee21c2889bd3662
