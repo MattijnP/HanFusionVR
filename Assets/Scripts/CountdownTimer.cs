@@ -1,19 +1,38 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public DateTime time;
+    [Tooltip("Time in seconds")]
+    [SerializeField]
+    private int countdownTime = 120;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private Text countDownText;
+
     void Start()
     {
-        
+        UpdateText();
+        StartCoroutine(Countdown());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator Countdown()
     {
-        
+        while(countdownTime > 0)
+        {
+            yield return new WaitForSeconds (1);
+            countdownTime--;
+            UpdateText();
+        }
+    }
+
+    void UpdateText()
+    {
+        TimeSpan time = TimeSpan.FromSeconds(countdownTime);
+
+        string formatedString = time .ToString(@"hh\:mm\:ss");
+        countDownText.text = formatedString;
     }
 }
