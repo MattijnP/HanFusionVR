@@ -36,7 +36,7 @@ public class TeacherBehaviour : MonoBehaviour
 
     private bool _isFreed;
 
-    private List<AudioClip> HelpAudio;
+    private List<AudioClip> HelpAudio = new List<AudioClip>();
 
     // Start is called before the first frame update
     private void Start()
@@ -61,12 +61,12 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateLostState()
     {
-        SwitchAnimation("IsStandingStill");
-
-        if (_timeSinceLastSpoken <= 0f)
+        if (_timeSinceLastSpoken -Time.deltaTime <= 0f)
         {
-            int value = Random.Range(0, 2);
-            AudioManager.instance.PlaySfx(HelpAudio[value]);
+            int value = Random.Range(1, 2);
+            AudioClip Play = HelpAudio[value];
+            Debug.Log(Play.name);
+            AudioManager.instance.PlaySfx(Play);
             _timeSinceLastSpoken = TimeBetweenSpeeches;
         }
 
@@ -78,8 +78,7 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateMovingState()
     {
-        SwitchAnimation("IsWalking");
-        _agent.SetDestination(SaveZoneLocation.position);
+        transform.position = SaveZoneLocation.position;
 
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
@@ -89,7 +88,6 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateSaveState()
     {
-        SwitchAnimation("IsStandingStill");
     }
 
     private void Setup()
