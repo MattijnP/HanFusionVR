@@ -16,13 +16,16 @@ public class TeacherAI : MonoBehaviour
         Inspect,
         Attack,
         Stun,
-        Unstun,
+        Recover,
     };
 
     public TeacherStates InitialState;
 
     [Range(0f, 10f)]
     public float StunDuration;
+
+    [Range(0f, 10f)]
+    public float RecoverDuration;
 
     [Range(0f, 30f)]
     public float InspectDuration;
@@ -71,7 +74,7 @@ public class TeacherAI : MonoBehaviour
             case TeacherStates.Inspect: UpdateInspectState(); break;
             case TeacherStates.Attack: UpdateAttackState(); break;
             case TeacherStates.Stun: UpdateStunState(); break;
-            case TeacherStates.Unstun: UpdateRecoverState(); break;
+            case TeacherStates.Recover: UpdateRecoverState(); break;
         }
     }
 
@@ -196,8 +199,8 @@ public class TeacherAI : MonoBehaviour
         // After <stunDuration> seconds, switch to Chase State
         if (_timeInState <= 0f)
         {
-            _timeInState = 9f;
-            SwitchStates(TeacherStates.Unstun);
+            _timeInState = RecoverDuration;
+            SwitchStates(TeacherStates.Recover);
         }
     }
 
