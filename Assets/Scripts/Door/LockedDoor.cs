@@ -10,9 +10,12 @@ public class LockedDoor : MonoBehaviour
     [SerializeField]
     private Rigidbody _door;
 
+    private AudioSource _audioSource;
+
     void Start()
     {
         _door.isKinematic = true;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -21,6 +24,8 @@ public class LockedDoor : MonoBehaviour
         if (other.gameObject.CompareTag(_keyTag))
         {
             _door.isKinematic = false;
+            _audioSource.Play();
+            Destroy(this);
         }
     }
 }
