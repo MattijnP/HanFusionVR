@@ -12,7 +12,9 @@ public class AudioManager : MonoBehaviour
 
     public float lowPitchRange;
     public float highPitchRange;
+
     private float defaultPitch = 1;
+
 
     public void Awake()
     {
