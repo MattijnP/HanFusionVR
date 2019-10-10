@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.Video;
 using System.Collections;
+using UnityEngine.Events;
 
-public class BeamerIntroManager : MonoBehaviour
+public class BeamerPlayer : MonoBehaviour
 {
+    [SerializeField]
+    private UnityEvent _videoFinished;
+
     [SerializeField]
     private float _playVideoAfterSeconds;
     private VideoPlayer _videoSource;
 
-    // Start is called before the first frame update
     void Start()
     {
         _videoSource = GetComponent<VideoPlayer>();
@@ -21,5 +24,12 @@ public class BeamerIntroManager : MonoBehaviour
         yield return new WaitForSeconds(_playVideoAfterSeconds);
 
         _videoSource.Play();
+
+        _videoSource.loopPointReached += VideoFinsihed;
+    }
+
+    void VideoFinsihed(VideoPlayer videoPlayer)
+    {
+        _videoFinished.Invoke();
     }
 }

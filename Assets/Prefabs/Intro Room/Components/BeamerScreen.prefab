@@ -127,7 +127,7 @@ VideoPlayer:
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
   m_SkipOnDrop: 1
-  m_Looping: 1
+  m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
 --- !u!114 &9045083156190946333
@@ -142,6 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f6f19dbbb96e146a1c9d4266868928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _videoFinished:
+    m_PersistentCalls:
+      m_Calls: []
   _playVideoAfterSeconds: 3
 --- !u!82 &9045083156190946332
 AudioSource:
