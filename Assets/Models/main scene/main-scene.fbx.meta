@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b91aaa9f281fe436f9f0b75b358ee49f
 ModelImporter:
   serializedVersion: 26
@@ -9,6 +10,13 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: plattegrond
     second: {fileID: 2100000, guid: 26d58e59dab308246884fc3cdee6b115, type: 2}
+=======
+guid: 005d3a8aa14360f4a8e7753b53d21e82
+ModelImporter:
+  serializedVersion: 26
+  internalIDToNameTable: []
+  externalObjects: {}
+>>>>>>> origin/School-Layout
   materials:
     importMaterials: 1
     materialName: 0
