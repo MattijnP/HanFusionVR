@@ -8,6 +8,10 @@ public class TeacherAI : MonoBehaviour
 {
     // ----------- PUBLIC VARIABLES
 
+    public AudioClip IllFindYou;
+    public AudioClip Grunt;
+    public AudioClip WhatWasThat;
+    public AudioClip YourAreNowMine;
     public enum TeacherStates {
         None = 0,
         Wander,
@@ -98,6 +102,7 @@ public class TeacherAI : MonoBehaviour
         // If player in field of view, switch to Chase State
         if (IsPlayerInFieldOfView())
         {
+            AudioManager.instance.PlaySfx(WhatWasThat);
             SwitchStates(TeacherStates.Chase);
         }
 
@@ -115,17 +120,20 @@ public class TeacherAI : MonoBehaviour
 
     private void UpdateChaseState()
     {
+        
         SwitchAnimation("IsWalking");
 
         // If player is not in field of view, switch to Wander State
         if (!IsPlayerInFieldOfView())
         {
+            AudioManager.instance.PlaySfx(IllFindYou);
             SwitchStates(TeacherStates.Wander);
         }
 
         // If teacher is close to player, switch to Attack State
         if (Vector3.Distance(this.transform.position, _player.transform.position) <=  AttackRadius)
         {
+            AudioManager.instance.PlaySfx(YourAreNowMine);
             SwitchStates(TeacherStates.Attack);
         }
 
@@ -181,6 +189,8 @@ public class TeacherAI : MonoBehaviour
         // If player is not in field of view, switch to Chase State
         if (!IsPlayerInFieldOfView())
         {
+            
+            AudioManager.instance.PlaySfx(IllFindYou);
             SwitchStates(TeacherStates.Wander);
         }
 
@@ -195,10 +205,12 @@ public class TeacherAI : MonoBehaviour
     {
         UpdateTimeInState();
         SwitchAnimation("IsStunned");
+        
 
         // After <stunDuration> seconds, switch to Chase State
         if (_timeInState <= 0f)
         {
+            AudioManager.instance.PlaySfx(Grunt);
             _timeInState = RecoverDuration;
             SwitchStates(TeacherStates.Recover);
         }
