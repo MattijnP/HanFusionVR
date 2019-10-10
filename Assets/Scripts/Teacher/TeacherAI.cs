@@ -17,16 +17,22 @@ public class TeacherAI : MonoBehaviour
         Stun,
     };
 
-    public TeacherStates initialState;
+    public TeacherStates InitialState;
 
     [Range(0f, 10f)]
-    public float stunDuration;
+    public float StunDuration;
 
     [Range(0f, 30f)]
-    public float inspectDuration;
+    public float InspectDuration;
 
     [Range(0f, 50f)]
     public float WanderRadius;
+
+    [Range(0f, 15f)]
+    public float AwarenessRadius;
+
+    [Range(0f, 3f)]
+    public float AttackRadius;
 
     public float FieldOfViewAngle;
 
@@ -38,7 +44,7 @@ public class TeacherAI : MonoBehaviour
 
     private NavMeshAgent _agent;
 
-    private Transform _playerTransform;
+    private GameObject _player;
 
     private static Animator ANIMATOR;
 
@@ -77,12 +83,15 @@ public class TeacherAI : MonoBehaviour
         }
 
         // If teacher hears a sound, switch to Inspect State
-        if (true)
+        if (false)
         {
             SwitchStates(TeacherStates.Inspect);
         }
 
-        SetRandomDestinationForAgent(-WanderRadius, WanderRadius);
+        if (_agent.remainingDistance <= _agent.stoppingDistance)
+        {
+            SetRandomDestinationForAgentNearTarget(this.transform, -WanderRadius, WanderRadius);
+        }
     }
 
     private void UpdateChaseState()
@@ -96,12 +105,12 @@ public class TeacherAI : MonoBehaviour
         }
 
         // If teacher is close to player, switch to Attack State
-        if (true)
+        if (Vector3.Distance(this.transform.position, _player.transform.position) <=  AttackRadius)
         {
             SwitchStates(TeacherStates.Attack);
         }
 
-        _agent.SetDestination(_playerTransform.position);
+        _agent.SetDestination(_player.transform.position);
     }
 
     private void UpdatePointOfInterestState()
@@ -109,7 +118,7 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsWalking");
 
         // If point of interest reached, switch to Inspect State
-        if (_timeInState == inspectDuration)
+        if (_timeInState == InspectDuration)
         {
             SwitchStates(TeacherStates.Wander);
         }
@@ -127,7 +136,7 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsStandingStill");
 
         // After <inspectDuration> seconds, switch to Wander State
-        if (_timeInState == inspectDuration)
+        if (_timeInState == InspectDuration)
         {
             SwitchStates(TeacherStates.Wander);
         }
@@ -144,13 +153,19 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsAttacking");
 
         // If teacher is attacked by player, switch to Stun State
-        if (true)
+        if (false)
         {
             SwitchStates(TeacherStates.Stun);
         }
 
+        // If player is not in field of view, switch to Chase State
+        if (!IsPlayerInFieldOfView())
+        {
+            SwitchStates(TeacherStates.Wander);
+        }
+
         // If player is in field of view but not close anymore, switch to Chase State
-        if (true)
+        if (IsPlayerInFieldOfView() && Vector3.Distance(_player.transform.position, this.transform.position) >= AttackRadius)
         {
             SwitchStates(TeacherStates.Chase);
         }
@@ -162,7 +177,7 @@ public class TeacherAI : MonoBehaviour
         SwitchAnimation("IsStunned");
 
         // After <stunDuration> seconds, switch to Chase State
-        if (_timeInState == stunDuration)
+        if (_timeInState == StunDuration)
         {
             SwitchStates(TeacherStates.Chase);
         }
@@ -184,21 +199,26 @@ public class TeacherAI : MonoBehaviour
 
     private void Setup()
     {
-        if (initialState == TeacherStates.None)
+        if (InitialState == TeacherStates.None)
         {
             _currentState = TeacherStates.Wander;
         }
         else
         {
-            _currentState = initialState;
+            _currentState = InitialState;
         }
 
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (!_playerTransform)
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
+        else
         {
             Debug.LogError("No player has been spawned");
         }
+
+        _agent = GetComponent<NavMeshAgent>();
+        ANIMATOR = GetComponent<Animator>();
     }
 
     private void UpdateTimeInState()
@@ -206,20 +226,45 @@ public class TeacherAI : MonoBehaviour
         _timeInState = Time.deltaTime;
     }
 
-    private void SetRandomDestinationForAgent(float minPos, float maxPos)
+    private void SetRandomDestinationForAgentNearTarget(Transform target, float minPos, float maxPos)
     {
-        Vector3 currentAgentPosition = transform.position;
         Vector3 newDestination = new Vector3(
-            currentAgentPosition.x + Random.Range(minPos, maxPos), 
-            currentAgentPosition.y, 
-            currentAgentPosition.z + Random.Range(minPos, maxPos)
+            target.position.x + Random.Range(minPos, maxPos),
+            target.position.y,
+            target.position.z + Random.Range(minPos, maxPos)
             );
         _agent.SetDestination(newDestination);
     }
 
     private bool IsPlayerInFieldOfView()
     {
-        Vector3 rayDirection = _playerTransform.position - transform.position;
-        return (Vector3.Angle(rayDirection, transform.forward) <= FieldOfViewAngle);
+        Vector3 rayDirection = _player.transform.position - transform.position;
+
+        bool canPlayerBeSeen = IsPlayerVisible(rayDirection);
+        bool isPlayerInFOV = (Vector3.Angle(rayDirection, transform.forward) <= FieldOfViewAngle);
+
+        if (canPlayerBeSeen && isPlayerInFOV)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsPlayerVisible(Vector3 target)
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(this.transform.position, target, out hit, AwarenessRadius))
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
     }
 }
