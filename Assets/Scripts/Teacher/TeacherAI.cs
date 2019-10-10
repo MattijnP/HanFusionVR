@@ -19,10 +19,13 @@ public class TeacherAI : MonoBehaviour
 
     public TeacherStates initialState;
 
+    [Range(0f, 10f)]
     public float stunDuration;
 
+    [Range(0f, 30f)]
     public float inspectDuration;
 
+    [Range(0f, 50f)]
     public float WanderRadius;
 
     public float FieldOfViewAngle;
@@ -97,6 +100,8 @@ public class TeacherAI : MonoBehaviour
         {
             SwitchStates(TeacherStates.Attack);
         }
+
+        _agent.SetDestination(_playerTransform.position);
     }
 
     private void UpdatePointOfInterestState()
@@ -149,7 +154,6 @@ public class TeacherAI : MonoBehaviour
         {
             SwitchStates(TeacherStates.Chase);
         }
-
     }
 
     private void UpdateStunState()
