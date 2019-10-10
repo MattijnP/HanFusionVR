@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class TeacherBehaviour : MonoBehaviour
 {
+
+    public AudioClip Help;
+    public AudioClip HelpHelp;
+    public AudioClip IAmStuckInHere;
+
     public enum TeacherStates
     {
         None = 0,
@@ -17,7 +22,11 @@ public class TeacherBehaviour : MonoBehaviour
 
     public Transform SaveZoneLocation;
 
+    public float TimeBetweenSpeeches;
+
     private TeacherStates _currentState;
+
+    private float _timeSinceLastSpoken;
 
     private NavMeshAgent _agent;
 
@@ -27,10 +36,16 @@ public class TeacherBehaviour : MonoBehaviour
 
     private bool _isFreed;
 
+    private List<AudioClip> HelpAudio;
+
     // Start is called before the first frame update
     private void Start()
     {
         Setup();
+
+        HelpAudio.Add(Help);
+        HelpAudio.Add(HelpHelp);
+        HelpAudio.Add(IAmStuckInHere);
     }
 
     // Update is called once per frame
@@ -47,6 +62,13 @@ public class TeacherBehaviour : MonoBehaviour
     private void UpdateLostState()
     {
         SwitchAnimation("IsStandingStill");
+
+        if (_timeSinceLastSpoken <= 0f)
+        {
+            int value = Random.Range(0, 2);
+            AudioManager.instance.PlaySfx(HelpAudio[value]);
+            _timeSinceLastSpoken = TimeBetweenSpeeches;
+        }
 
         if (_isFreed)
         {
@@ -81,6 +103,11 @@ public class TeacherBehaviour : MonoBehaviour
             _currentState = InitialState;
         }
 
+        if (TimeBetweenSpeeches == 0)
+        {
+            TimeBetweenSpeeches = 5f;
+        }
+
         _agent = GetComponent<NavMeshAgent>();
         ANIMATOR = GetComponent<Animator>();
     }
@@ -99,5 +126,10 @@ public class TeacherBehaviour : MonoBehaviour
         }
         _currentAnimation = animationState;
         ANIMATOR.SetTrigger(_currentAnimation);
+    }
+
+    private void UpdateTimeInState()
+    {
+        _timeInState -= Time.deltaTime;
     }
 }
