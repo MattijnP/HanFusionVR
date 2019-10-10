@@ -65,8 +65,10 @@ public class TeacherBehaviour : MonoBehaviour
 
         if (_timeSinceLastSpoken <= 0f)
         {
-            int value = Random.Range(0, 2);
-            AudioManager.instance.PlaySfx(HelpAudio[value]);
+            int value = Random.Range(1, 2);
+            AudioClip Play = HelpAudio[value];
+            Debug.Log(Play.name);
+            AudioManager.instance.PlaySfx(Play);
             _timeSinceLastSpoken = TimeBetweenSpeeches;
         }
 
