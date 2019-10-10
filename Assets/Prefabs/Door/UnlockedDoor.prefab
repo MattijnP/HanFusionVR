@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6073956901933138221}
   m_Layer: 0
-  m_Name: Door
+  m_Name: UnlockedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 964896f00562e4488a23f14536b90e4c,
         type: 3}
       propertyPath: m_Name
-      value: Deur
+      value: Door
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 964896f00562e4488a23f14536b90e4c,
         type: 3}
@@ -271,7 +271,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 436aee7d2ed95434e8b4926794794a4d,
         type: 3}
       propertyPath: m_Name
-      value: Deurpost
+      value: DoorPost
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 436aee7d2ed95434e8b4926794794a4d,
         type: 3}
