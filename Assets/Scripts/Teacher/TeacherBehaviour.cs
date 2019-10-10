@@ -36,7 +36,7 @@ public class TeacherBehaviour : MonoBehaviour
 
     private bool _isFreed;
 
-    private List<AudioClip> HelpAudio;
+    private List<AudioClip> HelpAudio = new List<AudioClip>();
 
     // Start is called before the first frame update
     private void Start()
@@ -61,6 +61,8 @@ public class TeacherBehaviour : MonoBehaviour
 
     private void UpdateLostState()
     {
+        UpdateTimeInState();
+
         if (_timeSinceLastSpoken <= 0f)
         {
             int value = Random.Range(0, 2);
