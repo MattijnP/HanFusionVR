@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: ccf82ad7e31eb564a9b3d9404e62d6c6
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+guid: 4cf786bfe9106bc4c9ff89be8c1bf593
+=======
+guid: ccf82ad7e31eb564a9b3d9404e62d6c6
+>>>>>>> origin/audio
+=======
+guid: 7a1cd12873dcb1947bd0f441f3e60c37
+>>>>>>> origin/charactermodels
+>>>>>>> origin/TeacherAI
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

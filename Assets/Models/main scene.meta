@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 05a2d078c468244bb98f3284d3b73d6a
+=======
+guid: a653b38b06b67534098e37cea2581f71
+>>>>>>> origin/TeacherAI
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

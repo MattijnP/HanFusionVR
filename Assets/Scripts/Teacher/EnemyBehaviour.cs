@@ -13,7 +13,6 @@ public class EnemyBehaviour : MonoBehaviour
     public AudioClip WhatWasThat;
     public AudioClip YourAreNowMine;
     public AudioClip Chase;
-    public float ChaseAudioVolume;
 
     public enum EnemyStates {
         None = 0,
@@ -105,7 +104,7 @@ public class EnemyBehaviour : MonoBehaviour
         // If player in field of view, switch to Chase State
         if (IsPlayerInFieldOfView())
         {
-
+            AudioManager.instance.ChangeSong(Chase);
             AudioManager.instance.PlaySfx(WhatWasThat);
             SwitchStates(EnemyStates.Chase);
         }
@@ -124,7 +123,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void UpdateChaseState()
     {
-        AudioManager.instance.ChangeSong(Chase, ChaseAudioVolume);
+        
 
         SwitchAnimation("IsWalking");
 
